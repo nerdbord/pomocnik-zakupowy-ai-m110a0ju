@@ -1,0 +1,18 @@
+{
+  "name": "pomocnik-zakupowy-ai",
+  "version": "1.0.0",
+  "description": "Inteligentne zakupy z pomocą GPT.",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "dev": "nodemon index.js"
+  },
+  "dependencies": {
+    "express": "^4.17.1",
+    "openai": "^3.0.0",
+    "dotenv": "^8.2.0"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.7"
+  }
+}
