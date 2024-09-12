@@ -10,5 +10,5 @@ Przed oddaniem projektu upewnijcie się, że wszystko działa zgodnie z Waszymi 
 
 ## Wymagania 📚
 
-1. Działająca aplikacja powinna zostać wdrożona na wybrane środowisko.
+1. Działająca aplikacja powinna zostać wdrożona na wybrane środowisko
 2. Link do wdrożonej aplikacji powinien zostać umieszczony w dedykowanym polu po prawej stronie tego okna.
