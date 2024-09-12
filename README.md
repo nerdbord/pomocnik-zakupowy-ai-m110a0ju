@@ -1,0 +1,1 @@
+# pomocnik-zakupowy-ai
