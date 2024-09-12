@@ -6,7 +6,7 @@ Rozpocznijcie od zorganizowania sesji brainstormingowej, aby zidentyfikować i z
 
 Wykorzystajcie narzędzie **Figjam** do wspólnej pracy nad założeniami i dokumentujcie wszystkie pomysły oraz wnioski.
 
-Link do Figjama wraz z instrukcją korzystania: [Figjam Brainstorming Session](https://www.figma.com/file/Y6MgeanTTv64crrmNF0A3E/Brainstorming-Session?type=whiteboard&node-id=0%3A1&t=giMGw8iTAEu57WAt-1)
+[Link do Figjama wraz z instrukcją korzystania](https://www.figma.com/file/Y6MgeanTTv64crrmNF0A3E/Brainstorming-Session?type=whiteboard&node-id=0%3A1&t=giMGw8iTAEu57WAt-1)
 
 ## Notka ⚠️
 
