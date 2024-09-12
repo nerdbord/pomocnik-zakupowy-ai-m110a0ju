@@ -1,6 +1,6 @@
 # Pomocnik zakupowy AI
 
-Witaj w wyzwaniu hackathonu "Pomocnik zakupowy AI"! 
+Witaj w wyzwaniu hackathonu "Pomocnik zakupowy AI"!
 
 Twoim zadaniem będzie stworzenie inteligentnego asystenta zakupowego, który na podstawie wywiadu z użytkownikiem dobiera właściwe produkty i przekierowuje do koszyka w znalezionym sklepie internetowym. Wykorzystasz do tego model GPT, który pomoże w analizie potrzeb użytkownika i rekomendacji produktów.
 
