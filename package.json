@@ -10,6 +10,7 @@
   },
   "dependencies": {
     "@ai-sdk/openai": "^0.0.59",
+    "@clerk/nextjs": "^5.5.2",
     "@radix-ui/react-slot": "^1.1.0",
     "ai": "^3.3.36",
     "class-variance-authority": "^0.7.0",

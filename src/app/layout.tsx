@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
 import localFont from "next/font/local";
 import "./globals.css";
+import { ClerkProvider } from "@clerk/nextjs";
+import { Header } from "@/components/ui/Header";
 
 const geistSans = localFont({
   src: "./fonts/GeistVF.woff",
@@ -15,7 +17,8 @@ const geistMono = localFont({
 
 export const metadata: Metadata = {
   title: "Pomocnik zakupowy AI",
-  description: "Inteligentny asystent zakupowy, który na podstawie wywiadu z użytkownikiem dobiera właściwe produkty i przekierowuje do koszyka w znalezionym sklepie internetowym.",
+  description:
+    "Inteligentny asystent zakupowy, który na podstawie wywiadu z użytkownikiem dobiera właściwe produkty i przekierowuje do koszyka w znalezionym sklepie internetowym.",
 };
 
 export default function RootLayout({
@@ -24,12 +27,15 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
-      <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased min-h-screen`}
-      >
-        {children}
-      </body>
-    </html>
+    <ClerkProvider>
+      <html lang="en">
+        <body
+          className={`${geistSans.variable} ${geistMono.variable} antialiased min-h-screen`}
+        >
+          <Header />
+          <main>{children}</main>
+        </body>
+      </html>
+    </ClerkProvider>
   );
 }
