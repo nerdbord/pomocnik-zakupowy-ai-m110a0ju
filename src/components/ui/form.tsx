@@ -9,9 +9,24 @@ export const FormComponent:React.FC = () => {
     const [maxPrice, setMaxPrice] = useState('');
     const [searchTerm, setSearchTerm] = useState('');
 
-    const handleSubmit = (e: { preventDefault: () => void; }) => {
+    const handleSubmit = async (e: { preventDefault: () => void; }) => {
         e.preventDefault();
         console.log({ searchTerm, minPrice, maxPrice });
+
+        const response = await fetch("http://localhost:3000/api/chat", {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+              productType: searchTerm,
+              priceRange: { min: minPrice, max: maxPrice },
+            }),
+          });
+      
+          const data = await response.json();
+      
+          console.log(data);
     };
 
     const handleReset = () => {
