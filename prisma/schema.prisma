@@ -23,7 +23,10 @@ model User {
   username      String?                            // Opcjonalna nazwa użytkownika
   clerkUserId   String   @unique                   // Clerk user ID (unikalne)
   products      Product[]                          // Relacja jeden-do-wielu (użytkownik ma wiele produktów)
+
+  @@map(name: "users")
 }
+
 
 model Product {
   id          String   @id @default(uuid())        // UUID generowane automatycznie dla produktu
@@ -31,6 +34,9 @@ model Product {
   price       Float?                               // Cena produktu (opcjonalna)
   url         String                               // URL do produktu (wymagane)
   userId      String                               // ID użytkownika (relacja)
-  user        User     @relation(fields: [userId], references: [clerkUserId], onDelete: Cascade)  // Relacja do User
+  user        User     @relation(fields: [userId], references: [clerkUserId], onDelete: Cascade)  
+  // Relacja do User
+
+  @@map(name: "products")
 }
 

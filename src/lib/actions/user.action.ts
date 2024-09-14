@@ -4,7 +4,7 @@ import {
   CreateUserParams,
   UpdateUserParams,
   DeleteUserParams,
-} from "./shared.types";
+} from "../../types/shared.types";
 
 export async function createUser(params: CreateUserParams) {
   const {} = params;
