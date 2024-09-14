@@ -1,8 +1,16 @@
+
+// import { DeleteButton } from "@/components/ui/DeleteButton";
+import {UsersList} from "@/components/UsersList";
 import { FormComponent } from "../../../components/ui/form";
+
 
 export default function Home() {
   return (
     <div>
+      <h1 className="text-xl m-auto text-center mt-8">Pomocnik zakupowy AI</h1>
+      {/* <DeleteButton /> */}
+      <UsersList />
+
       <h1 className="text-5xl font-semibold m-auto text-center mt-12 text-slate-600">
         Pomocnik zakupowy AI
       </h1>
