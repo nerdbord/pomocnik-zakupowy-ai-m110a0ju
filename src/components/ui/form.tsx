@@ -9,7 +9,7 @@ export const FormComponent:React.FC = () => {
     const [maxPrice, setMaxPrice] = useState('');
     const [searchTerm, setSearchTerm] = useState('');
 
-    const handleSubmit = (e) => {
+    const handleSubmit = (e: { preventDefault: () => void; }) => {
         e.preventDefault();
         console.log({ searchTerm, minPrice, maxPrice });
     };
