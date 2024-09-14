@@ -2,7 +2,7 @@
 import { Webhook } from "svix";
 import { headers } from "next/headers";
 import { WebhookEvent } from "@clerk/nextjs/server";
-import { createUser, deleteUser, updateUser } from "@/lib/actions/user.action";
+import { createUser } from "@/lib/actions/user.action";
 import { NextResponse } from "next/server";
 
 export async function POST(req: Request) {
@@ -55,36 +55,37 @@ export async function POST(req: Request) {
   const eventType = evt.type;
 
   if (eventType === "user.created") {
-    const {
-      /* params **/
-    } = evt.data;
+    const { id, email_addresses } = evt.data;
 
     // create a new user in your database
-    const user = await createUser({});
-
-    return NextResponse.json({ message: "OK", user });
-  }
-
-  if (eventType === "user.updated") {
-    const {
-      /* params **/
-    } = evt.data;
-
-    // create a new user in your database
-    const user = await updateUser({});
-
-    return NextResponse.json({ message: "OK", user });
-  }
-
-  if (eventType === "user.deleted") {
-    const { id } = evt.data;
-
-    const deletedUser = await deleteUser({
-      clerkId: id!,
+    const user = await createUser({
+      clerkUserId: id!,
+      email: email_addresses[0].email_address,
     });
 
-    return NextResponse.json({ message: "OK", user: deletedUser });
+    return NextResponse.json({ message: "OK", user });
   }
+
+  //   if (eventType === "user.updated") {
+  //     const {
+  //       /* params **/
+  //     } = evt.data;
+
+  //     // create a new user in your database
+  //     const user = await updateUser({});
+
+  //     return NextResponse.json({ message: "OK", user });
+  //   }
+
+  //   if (eventType === "user.deleted") {
+  //     const { id } = evt.data;
+
+  //     const deletedUser = await deleteUser({
+  //         clerkUserId: id!,
+  //     });
+
+  //     return NextResponse.json({ message: "OK", user: deletedUser });
+  //   }
 
   return NextResponse.json({ message: "OK" });
 }
