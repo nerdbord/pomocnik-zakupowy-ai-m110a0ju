@@ -1,13 +1,13 @@
 export interface CreateUserParams {
-    clerkUserId: string;
-    email?: string;
+  clerkUserId: string;
+  username?: string | null;
 }
 
 export interface UpdateUserParams {
-    clerkUserId: string;
-    email?: string;
+  clerkUserId: string;
+  username?: string | null;
 }
 
 export interface DeleteUserParams {
-    clerkUserId: string;
+  clerkUserId?: string;
 }

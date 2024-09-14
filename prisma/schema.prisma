@@ -1,42 +1,25 @@
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
-
-// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
-// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
-
 generator client {
   provider = "prisma-client-js"
 }
 
-// datasource db {
-//   provider = "postgresql"
-//   url      = env("DATABASE_URL")
-// }
 datasource db {
-  provider = "postgresql"
-  url = env("POSTGRES_PRISMA_URL") // uses connection pooling
-  directUrl = env("POSTGRES_URL_NON_POOLING") // uses a direct connection
+  provider  = "postgresql"
+  url       = env("POSTGRES_PRISMA_URL")
+  directUrl = env("POSTGRES_URL_NON_POOLING")
 }
 
 model User {
-  id            String   @id @default(uuid())  // UUID generowane automatycznie
-  username      String?                            // Opcjonalna nazwa użytkownika
-  clerkUserId   String   @unique                   // Clerk user ID (unikalne)
-  products      Product[]                          // Relacja jeden-do-wielu (użytkownik ma wiele produktów)
-
-  @@map(name: "users")
+  id          String    @id @default(uuid())
+  username    String?
+  clerkUserId String    @unique
+  products    Product[]
 }
-
 
 model Product {
-  id          String   @id @default(uuid())        // UUID generowane automatycznie dla produktu
-  name        String?                              // Nazwa produktu (opcjonalna)
-  price       Float?                               // Cena produktu (opcjonalna)
-  url         String                               // URL do produktu (wymagane)
-  userId      String                               // ID użytkownika (relacja)
-  user        User     @relation(fields: [userId], references: [clerkUserId], onDelete: Cascade)  
-  // Relacja do User
-
-  @@map(name: "products")
+  id     String  @id @default(uuid())
+  name   String?
+  price  Float?
+  url    String
+  userId String
+  user   User    @relation(fields: [userId], references: [clerkUserId], onDelete: Cascade)
 }
-
