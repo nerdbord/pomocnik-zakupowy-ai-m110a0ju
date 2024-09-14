@@ -13,8 +13,6 @@ model User {
   username    String?
   clerkUserId String    @unique
   products    Product[]
-
-  @@map("users")
 }
 
 model Product {
@@ -24,6 +22,4 @@ model Product {
   url    String
   userId String
   user   User    @relation(fields: [userId], references: [clerkUserId], onDelete: Cascade)
-
-  @@map("products")
 }
