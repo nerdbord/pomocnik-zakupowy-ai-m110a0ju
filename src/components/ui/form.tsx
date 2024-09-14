@@ -2,12 +2,14 @@
 
 import { useState } from 'react';
 import { Button } from "@/components/ui/button"
-import { Input } from "@/components/ui/input"
+import { Input } from "@/components/ui/input";
+import { ResultsList } from '../ResultsList';
 
 export const FormComponent:React.FC = () => {
     const [minPrice, setMinPrice] = useState('');
     const [maxPrice, setMaxPrice] = useState('');
     const [searchTerm, setSearchTerm] = useState('');
+    const [results, setResults] = useState<string[]>([])
 
     const handleSubmit = async (e: { preventDefault: () => void; }) => {
         e.preventDefault();
@@ -25,6 +27,8 @@ export const FormComponent:React.FC = () => {
           });
       
           const data = await response.json();
+
+          setResults(data.websites)
       
           console.log(data);
     };
@@ -76,6 +80,7 @@ export const FormComponent:React.FC = () => {
                 Szukaj
             </Button>
         </div>
+        <ResultsList results={results}/>
     </div>
 );
 }
