@@ -2,7 +2,7 @@
 import { Webhook } from "svix";
 import { headers } from "next/headers";
 import { WebhookEvent } from "@clerk/nextjs/server";
-import { createUser, deleteUser, updateUser } from "@/lib/actions/user.action";
+import { createUser } from "@/lib/actions/user.action";
 import { NextResponse } from "next/server";
 
 export async function POST(req: Request) {
@@ -60,12 +60,15 @@ export async function POST(req: Request) {
   console.log("Event type:", eventType);
 
   if (eventType === "user.created") {
+
     const { id, username } = evt.data;
     console.log("Creating user:", { id, username });
+
 
     // create a new user in your database
     const user = await createUser({
       clerkUserId: id!,
+
       username: username || null,
       // email: email_addresses[0].email_address,
     });
@@ -98,5 +101,6 @@ export async function POST(req: Request) {
     return NextResponse.json({ message: "OK", user: deletedUser });
   }
   console.log("No matching event type");
+
   return NextResponse.json({ message: "OK" });
 }
