@@ -6,11 +6,13 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "postinstall": "prisma generate"
   },
   "dependencies": {
     "@ai-sdk/openai": "^0.0.59",
     "@clerk/nextjs": "^5.5.2",
+    "@prisma/client": "^5.19.1",
     "@radix-ui/react-slot": "^1.1.0",
     "ai": "^3.3.36",
     "class-variance-authority": "^0.7.0",
@@ -30,7 +32,9 @@
     "eslint": "^8",
     "eslint-config-next": "14.2.11",
     "postcss": "^8",
+    "prisma": "^5.19.1",
     "tailwindcss": "^3.4.1",
+    "ts-node": "^10.9.2",
     "typescript": "^5"
   }
 }
