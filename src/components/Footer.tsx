@@ -4,9 +4,12 @@ import { Linkedin } from "lucide-react";
 export const Footer = () => {
   const linksToProfiles = [
     { href: "https://www.linkedin.com/in/michal-wolanin/", label: "Michał" },
-    { href: "https://www.linkedin.com/in/bartosz-podemski-b58a8a240/", label: "Bartek" },
     {
-      href: "https://www.github.com/transcendence12",
+      href: "https://www.linkedin.com/in/bartosz-podemski-b58a8a240/",
+      label: "Bartek",
+    },
+    {
+      href: "https://www.linkedin.com/in/ma%C5%82gorzata-krawczuk/",
       label: "Gosia",
     },
   ];
