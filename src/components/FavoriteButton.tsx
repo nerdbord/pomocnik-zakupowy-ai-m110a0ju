@@ -3,6 +3,7 @@
 import { useEffect, useState, useTransition } from "react";
 import { Button } from "./ui/button";
 import { addFavorite, isFavorite } from "@/lib/actions/favorites.action";
+import { useToast } from "@/hooks/use-toast";
 
 interface FavoriteButtonProps {
   url: string;
@@ -11,7 +12,7 @@ interface FavoriteButtonProps {
 export const FavoriteButton: React.FC<FavoriteButtonProps> = ({ url }) => {
   const [isPending, startTransition] = useTransition();
   const [isAdded, setIsAdded] = useState(false); // Ustawienie stanu dla ulubionych
-  const [feedback, setFeedback] = useState<string | null>(null); // Komunikat dla użytkownika
+  const { toast } = useToast();
 
   // Sprawdź, czy link jest już w ulubionych po załadowaniu komponentu
   useEffect(() => {
@@ -28,7 +29,10 @@ export const FavoriteButton: React.FC<FavoriteButtonProps> = ({ url }) => {
       if (!isAdded) {
         await addFavorite(url);
         setIsAdded(true); // Ustaw jako dodany
-        setFeedback("Link został dodany do ulubionych."); // Ustaw komunikat
+
+        toast({
+          description: "Link został dodany do ulubionych.",
+        });
       }
     });
   };
@@ -37,7 +41,6 @@ export const FavoriteButton: React.FC<FavoriteButtonProps> = ({ url }) => {
       <Button onClick={handleAddToFavorite} disabled={isPending || isAdded}>
         {isPending ? "Dodawanie" : isAdded ? "Dodano" : "Dodaj do ulubionych"}
       </Button>
-      {feedback && <p className="text-green-600 mt-2">{feedback}</p>}
     </div>
   );
 };

@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { ResultsList } from "../ResultsList";
+import { Separator } from "./separator";
 
 export const FormComponent: React.FC = () => {
   const [minPrice, setMinPrice] = useState("");
@@ -81,7 +82,7 @@ export const FormComponent: React.FC = () => {
           className="w-2/6 border border-gray-300 p-2"
         />
       </div>
-      <div className="mt-6 space-x-3">
+      <div className="mt-6 mb-6 space-x-3">
         <Button
           onClick={handleReset}
           className="bg-slate-200 hover:bg-slate-300 text-xl font-thin text-black p-2"
@@ -95,7 +96,8 @@ export const FormComponent: React.FC = () => {
           Szukaj
         </Button>
       </div>
-      <ResultsList results={results} />
+      <Separator className="w-3/6 my-4 mx-auto" />
+      <ResultsList results={results} setResults={setResults} />
     </div>
   );
 };
