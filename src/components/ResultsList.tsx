@@ -3,6 +3,7 @@
 import { FavoriteButton } from "./FavoriteButton";
 import {
   Table,
+  TableCaption,
   TableBody,
   TableCell,
   TableHead,
@@ -17,8 +18,9 @@ interface ResultsListProps {
 export const ResultsList: React.FC<ResultsListProps> = ({ results }) => {
   if (results.length === 0) return null;
   return (
-    <div className="mx-auto mt-8 max-w-[1100px] px-12 flex-col items-center justify-center">
+    <div className="mx-auto mt-8 max-w-[1100px] px-12">
       <Table>
+      <TableCaption className="text-left">Lista znalezionych linków.</TableCaption>
         <TableHeader>
           <TableRow>
             <TableHead>Znalezione linki:</TableHead>
@@ -28,12 +30,12 @@ export const ResultsList: React.FC<ResultsListProps> = ({ results }) => {
         <TableBody>
           {results.map((link, index) => (
             <TableRow key={index}>
-              <TableCell className="font-medium">
+              <TableCell className="font-medium text-left">
                 <a
                   href={link}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="hover:underline text-blue-600"
+                  className="hover:underline hover:text-blue-600"
                 >
                   {link}
                 </a>
