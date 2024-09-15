@@ -4,6 +4,7 @@ import { useEffect, useState, useTransition } from "react";
 import { Button } from "./ui/button";
 import { addFavorite, isFavorite } from "@/lib/actions/favorites.action";
 import { useToast } from "@/hooks/use-toast";
+import { Star, Check, Loader2 } from "lucide-react";
 
 interface FavoriteButtonProps {
   url: string;
@@ -31,7 +32,7 @@ export const FavoriteButton: React.FC<FavoriteButtonProps> = ({ url }) => {
         setIsAdded(true); // Ustaw jako dodany
 
         toast({
-          description: "Link został dodany do ulubionych.",
+          description: "Link został dodany do listy ulubionych.",
         });
       }
     });
@@ -39,7 +40,20 @@ export const FavoriteButton: React.FC<FavoriteButtonProps> = ({ url }) => {
   return (
     <div>
       <Button onClick={handleAddToFavorite} disabled={isPending || isAdded}>
-        {isPending ? "Dodawanie" : isAdded ? "Dodano" : "Dodaj do ulubionych"}
+        {/* {isPending ? "Zapisywanie" : isAdded ? "Zapisano" : "Zapisz w ulubionych"} */}
+        {isPending ? (
+          <>
+            <Loader2 className="mr-2 h-4 w-4 animate-spin" /> Zapisywanie
+          </>
+        ) : isAdded ? (
+          <>
+            <Check className="mr-2 h-4 w-4" /> Zapisano
+          </>
+        ) : (
+          <>
+            <Star className="mr-2 h-4 w-4" /> Zapisz
+          </>
+        )}
       </Button>
     </div>
   );
