@@ -9,11 +9,11 @@ interface ResultsListProps {
 export const ResultsList:React.FC<ResultsListProps> = ({results}) => {
     if(results.length === 0) return null
     return (
-        <div className="mt-8">
+        <div className="mx-auto mt-8 max-w-[1100px] px-12 flex-col items-center justify-center">
             <h3>Znalezione linki:</h3>
-            <ul>
+            <ul className="max-w-[800px] flex-col items-start justify-center gap-2 hover:flex-row">
                 {results.map((link, index)=>(
-                    <li key={index} className="my-2">
+                    <li key={index} className=" my-2 flex items-start justify-between gap-2">
                         <a href={link} target="_blank" rel="noopener noreferrer" className="underline text-blue-600">
                             {link}
                         </a>

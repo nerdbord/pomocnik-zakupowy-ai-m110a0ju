@@ -2,6 +2,7 @@ import { getFavorites } from "@/lib/actions/favorites.action";
 import { FavoriteLink } from "@/components/FavoriteLink";
 import { auth } from "@clerk/nextjs/server";
 import { redirect } from "next/navigation";
+import { DeleteFavoriteButton } from "@/components/DeleteFavoriteButton";
 
 
 export default async function Favorites() {
@@ -23,7 +24,11 @@ export default async function Favorites() {
             <h3>Twoje ulubione linki:</h3>
             <ul>
                 {favoriteLinks.map((link)=> (
-                    <FavoriteLink key={link.id} url={link.url} />
+                    <li key={link.id} className="flex items-center">
+                        <FavoriteLink url={link.url} />
+                        <DeleteFavoriteButton id={link.id}/>
+                    </li>
+                    
                 ))}
             </ul>
         </div>
