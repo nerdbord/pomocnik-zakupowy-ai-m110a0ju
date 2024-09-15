@@ -39,8 +39,7 @@ export const FavoriteButton: React.FC<FavoriteButtonProps> = ({ url }) => {
   };
   return (
     <div>
-      <Button onClick={handleAddToFavorite} disabled={isPending || isAdded}>
-        {/* {isPending ? "Zapisywanie" : isAdded ? "Zapisano" : "Zapisz w ulubionych"} */}
+      <Button variant="outline" onClick={handleAddToFavorite} disabled={isPending || isAdded}>
         {isPending ? (
           <>
             <Loader2 className="mr-2 h-4 w-4 animate-spin" /> Zapisywanie
@@ -51,7 +50,7 @@ export const FavoriteButton: React.FC<FavoriteButtonProps> = ({ url }) => {
           </>
         ) : (
           <>
-            <Star className="mr-2 h-4 w-4" /> Zapisz
+            <Star strokeWidth={1} className="" />
           </>
         )}
       </Button>

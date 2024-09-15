@@ -37,7 +37,7 @@ const handleRemove = (link: string) => {
   
   
   return (
-    <div className="mx-auto mt-8 max-w-[1100px] px-12">
+    <div className="mx-auto mt-8 mb-10 max-w-[1100px] px-12">
       <Table>
         <TableCaption className="text-left">
           Lista znalezionych linków.
@@ -66,7 +66,7 @@ const handleRemove = (link: string) => {
                 <FavoriteButton url={link} />
               </TableCell>
               <TableCell className="text-right">
-                <Button variant="secondary" onClick={()=>handleRemove(link)}>
+                <Button variant="outline" onClick={()=>handleRemove(link)}>
                   <Trash2 strokeWidth={1} />
                 </Button>
               </TableCell>
