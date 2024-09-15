@@ -10,7 +10,7 @@ export const FavoriteLink: React.FC<FavoriteLinkProps> = ({ url }) => {
       href={url}
       target="_blank"
       rel="noopener noreferrer"
-      className="underline text-blue-600"
+      className="hover:underline hover:text-blue-600"
     >
       {url}
     </a>
