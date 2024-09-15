@@ -1,103 +1,178 @@
-"use client";
+"use client"
 
-import { useEffect, useState } from "react";
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { ResultsList } from "../ResultsList";
-import { Separator } from "./separator";
+import * as React from "react"
+import * as LabelPrimitive from "@radix-ui/react-label"
+import { Slot } from "@radix-ui/react-slot"
+import {
+  Controller,
+  ControllerProps,
+  FieldPath,
+  FieldValues,
+  FormProvider,
+  useFormContext,
+} from "react-hook-form"
 
-export const FormComponent: React.FC = () => {
-  const [minPrice, setMinPrice] = useState("");
-  const [maxPrice, setMaxPrice] = useState("");
-  const [searchTerm, setSearchTerm] = useState("");
-  const [results, setResults] = useState<string[]>([]);
+import { cn } from "@/lib/utils"
+import { Label } from "@/components/ui/label"
 
-  // Odczytaj wyniki z localStorage przy wczytaniu komponentu
-  useEffect(() => {
-    const savedResults = localStorage.getItem("searchResults");
-    if (savedResults) {
-      setResults(JSON.parse(savedResults));
-    }
-  }, []);
+const Form = FormProvider
 
-  const handleSubmit = async (e: { preventDefault: () => void }) => {
-    e.preventDefault();
-    console.log({ searchTerm, minPrice, maxPrice });
+type FormFieldContextValue<
+  TFieldValues extends FieldValues = FieldValues,
+  TName extends FieldPath<TFieldValues> = FieldPath<TFieldValues>
+> = {
+  name: TName
+}
 
-    const response = await fetch("http://localhost:3000/api/chat", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        productType: searchTerm,
-        priceRange: { min: minPrice, max: maxPrice },
-      }),
-    });
+const FormFieldContext = React.createContext<FormFieldContextValue>(
+  {} as FormFieldContextValue
+)
 
-    const data = await response.json();
+const FormField = <
+  TFieldValues extends FieldValues = FieldValues,
+  TName extends FieldPath<TFieldValues> = FieldPath<TFieldValues>
+>({
+  ...props
+}: ControllerProps<TFieldValues, TName>) => {
+  return (
+    <FormFieldContext.Provider value={{ name: props.name }}>
+      <Controller {...props} />
+    </FormFieldContext.Provider>
+  )
+}
 
-    setResults(data.websites);
+const useFormField = () => {
+  const fieldContext = React.useContext(FormFieldContext)
+  const itemContext = React.useContext(FormItemContext)
+  const { getFieldState, formState } = useFormContext()
 
-    // Zapisz wyniki w localStorage
-    localStorage.setItem("searchResults", JSON.stringify(data.websites));
+  const fieldState = getFieldState(fieldContext.name, formState)
 
-    console.log(data);
-  };
+  if (!fieldContext) {
+    throw new Error("useFormField should be used within <FormField>")
+  }
 
-  const handleReset = () => {
-    setSearchTerm("");
-    setMinPrice("");
-    setMaxPrice("");
-    setResults([]);
-    localStorage.removeItem("searchResults"); // Usuń wyniki z localStorage
-  };
+  const { id } = itemContext
+
+  return {
+    id,
+    name: fieldContext.name,
+    formItemId: `${id}-form-item`,
+    formDescriptionId: `${id}-form-item-description`,
+    formMessageId: `${id}-form-item-message`,
+    ...fieldState,
+  }
+}
+
+type FormItemContextValue = {
+  id: string
+}
+
+const FormItemContext = React.createContext<FormItemContextValue>(
+  {} as FormItemContextValue
+)
+
+const FormItem = React.forwardRef<
+  HTMLDivElement,
+  React.HTMLAttributes<HTMLDivElement>
+>(({ className, ...props }, ref) => {
+  const id = React.useId()
 
   return (
-    <div className="flex flex-col m-auto mt-12 text-center">
-      <span className="text-2xl font-thin">Czego szukasz?</span>
-      <Input
-        type="text"
-        value={searchTerm}
-        onChange={(e) => setSearchTerm(e.target.value)}
-        className="m-auto w-3/6 mt-3 border border-gray-300 p-2"
-        placeholder="Wpisz frazę"
-      />
-      <span className="text-2xl font-thin mt-12">
-        Podaj zakres cenowy jaki Cię obowiązuje
-      </span>
-      <div className="flex flex-row items-center m-auto w-3/6 space-x-3">
-        <span className="text-2xl font-thin mt-1">od</span>
-        <Input
-          type="number"
-          value={minPrice}
-          onChange={(e) => setMinPrice(e.target.value)}
-          className="w-2/6 border border-gray-300 p-2"
-        />
-        <span className="text-2xl font-thin mt-1">do</span>
-        <Input
-          type="number"
-          value={maxPrice}
-          onChange={(e) => setMaxPrice(e.target.value)}
-          className="w-2/6 border border-gray-300 p-2"
-        />
-      </div>
-      <div className="mt-6 mb-6 space-x-3">
-        <Button
-          onClick={handleReset}
-          className="bg-slate-200 hover:bg-slate-300 text-xl font-thin text-black p-2"
-        >
-          Wyczyść
-        </Button>
-        <Button
-          onClick={handleSubmit}
-          className="bg-slate-600 hover:bg-slate-500 text-xl font-thin text-white p-2"
-        >
-          Szukaj
-        </Button>
-      </div>
-      <Separator className="w-3/6 my-4 mx-auto" />
-      <ResultsList results={results} setResults={setResults} />
-    </div>
-  );
-};
+    <FormItemContext.Provider value={{ id }}>
+      <div ref={ref} className={cn("space-y-2", className)} {...props} />
+    </FormItemContext.Provider>
+  )
+})
+FormItem.displayName = "FormItem"
+
+const FormLabel = React.forwardRef<
+  React.ElementRef<typeof LabelPrimitive.Root>,
+  React.ComponentPropsWithoutRef<typeof LabelPrimitive.Root>
+>(({ className, ...props }, ref) => {
+  const { error, formItemId } = useFormField()
+
+  return (
+    <Label
+      ref={ref}
+      className={cn(error && "text-destructive", className)}
+      htmlFor={formItemId}
+      {...props}
+    />
+  )
+})
+FormLabel.displayName = "FormLabel"
+
+const FormControl = React.forwardRef<
+  React.ElementRef<typeof Slot>,
+  React.ComponentPropsWithoutRef<typeof Slot>
+>(({ ...props }, ref) => {
+  const { error, formItemId, formDescriptionId, formMessageId } = useFormField()
+
+  return (
+    <Slot
+      ref={ref}
+      id={formItemId}
+      aria-describedby={
+        !error
+          ? `${formDescriptionId}`
+          : `${formDescriptionId} ${formMessageId}`
+      }
+      aria-invalid={!!error}
+      {...props}
+    />
+  )
+})
+FormControl.displayName = "FormControl"
+
+const FormDescription = React.forwardRef<
+  HTMLParagraphElement,
+  React.HTMLAttributes<HTMLParagraphElement>
+>(({ className, ...props }, ref) => {
+  const { formDescriptionId } = useFormField()
+
+  return (
+    <p
+      ref={ref}
+      id={formDescriptionId}
+      className={cn("text-sm text-muted-foreground", className)}
+      {...props}
+    />
+  )
+})
+FormDescription.displayName = "FormDescription"
+
+const FormMessage = React.forwardRef<
+  HTMLParagraphElement,
+  React.HTMLAttributes<HTMLParagraphElement>
+>(({ className, children, ...props }, ref) => {
+  const { error, formMessageId } = useFormField()
+  const body = error ? String(error?.message) : children
+
+  if (!body) {
+    return null
+  }
+
+  return (
+    <p
+      ref={ref}
+      id={formMessageId}
+      className={cn("text-sm font-medium text-destructive", className)}
+      {...props}
+    >
+      {body}
+    </p>
+  )
+})
+FormMessage.displayName = "FormMessage"
+
+export {
+  useFormField,
+  Form,
+  FormItem,
+  FormLabel,
+  FormControl,
+  FormDescription,
+  FormMessage,
+  FormField,
+}
