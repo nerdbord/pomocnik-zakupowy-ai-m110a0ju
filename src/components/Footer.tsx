@@ -14,7 +14,7 @@ export const Footer = () => {
     },
   ];
   return (
-    <footer className="mx-auto w-full flex-col items-center gap-5 bg-slate-100 p-4 mt-8 border-t">
+    <footer className="mx-auto w-full flex-col items-center gap-5 bg-slate-100 p-4 mt-8">
       <div className="mx-auto flex-col justify-center items-center text-sm max-w-[600px]">
         <span className="flex justify-center items-center py-2 px-4">
           &copy; {new Date().getFullYear()} - All rights reserved.

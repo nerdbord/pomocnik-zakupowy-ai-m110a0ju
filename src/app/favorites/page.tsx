@@ -28,12 +28,12 @@ export default async function Favorites() {
   }
 
   return (
-    <main className="mx-auto max-w-[1100px]">
+    <main className="mx-auto max-w-[800px] min-h-screen flex justify-center mt-[100px]">
       <Table>
         <TableCaption className="text-left">Twoje ulubione linki.</TableCaption>
         <TableHeader>
           <TableRow>
-            <TableHead>Twoje zapisane linki:</TableHead>
+            <TableHead className="text-xl">Twoje zapisane linki</TableHead>
             <TableHead className="text-right">Usuń</TableHead>
           </TableRow>
         </TableHeader>

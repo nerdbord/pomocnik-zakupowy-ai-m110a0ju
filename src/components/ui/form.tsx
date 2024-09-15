@@ -97,7 +97,7 @@ export const FormComponent: React.FC = () => {
         </Button>
       </div>
       <Separator className="w-3/6 my-4 mx-auto" />
-      <ResultsList results={results} />
+      <ResultsList results={results} setResults={setResults} />
     </div>
   );
 };

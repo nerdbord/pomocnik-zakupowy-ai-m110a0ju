@@ -15,6 +15,7 @@
     "@prisma/client": "^5.19.1",
     "@radix-ui/react-separator": "^1.1.0",
     "@radix-ui/react-slot": "^1.1.0",
+    "@radix-ui/react-toast": "^1.2.1",
     "@vercel/postgres": "^0.10.0",
     "ai": "^3.3.36",
     "class-variance-authority": "^0.7.0",
