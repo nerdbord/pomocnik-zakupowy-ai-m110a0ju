@@ -195,9 +195,7 @@ export const FormComponent: React.FC = () => {
               </FormItem>
             )}
           />
-          <span className="text-2xl font-thin mt-12">
-            Podaj zakres cenowy jaki Cię obowiązuje
-          </span>
+          <span className="">Podaj zakres cenowy</span>
           <div className="flex flex-row items-center m-auto w-3/6 space-x-3">
             <FormField
               control={form.control}
