@@ -150,8 +150,9 @@ export const FormComponent: React.FC = () => {
 
   const handleSubmit = async (values: z.infer<typeof formSchema>) => {
     console.log(values);
-
-    const response = await fetch("http://localhost:3000/api/chat", {
+    // const response = await fetch("http://localhost:3000/api/chat",
+    // https://pomocnik-zakupowy-ai-m110a0ju.vercel.app/
+    const response = await fetch("https://pomocnik-zakupowy-ai-m110a0ju.vercel.app/api/chat", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
